@@ -3,6 +3,7 @@ import mongoose from "mongoose"
 import cors from "cors"
 import dotenv from "dotenv"
 
+
 import userRouter from "./routes/userRoute.js"
 import taskRouter from "./routes/taskRoute.js"
 import forgotPasswordRouter from "./routes/forgotPassword.js"
@@ -18,7 +19,7 @@ app.use(express.json())
 app.use(cors())
 
 //db config
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect(process.env.MONGO_URI || "mongodb+srv://Kiran:Vkikiran007@cluster0.ubsyq.mongodb.net/todo?retryWrites=true&w=majorityz", {
     useNewUrlParser: true,
 }, (err) => {
     if (err) {

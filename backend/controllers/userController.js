@@ -5,7 +5,7 @@ import validator from "validator";
 
 //create token
 const createToken = (id) => {
-    return jwt.sign({id}, process.env.JWT_SECRET, {
+    return jwt.sign({id}, process.env.JWT_SECRET ||"shbasncdxfhjbkfh5667865", {
         expiresIn: 3 * 24 * 60 * 60
     })
 }

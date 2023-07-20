@@ -2,6 +2,7 @@ import taskModel from "../models/taskModel.js";
 import userModel from "../models/userModel.js";
 import { createTransport } from 'nodemailer';
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 dotenv.config();
 const sendMail = (email, subject, title, description) => {
     var transporter = createTransport({
@@ -53,8 +54,24 @@ const removeTask = (req, res) => {
 }
 
 const getTask = (req, res) => {
+    const search=req.query.search;
+    console.log(search)
     taskModel.find({ userId: req.user.id })
         .then((data) => res.status(200).json(data))
         .catch((error) => res.status(501).json({ message: error.message }))
+
+    // const id=req.user.id;
 }
-export { addTask, getTask,removeTask }
+const updateTask=(req,res)=>{
+    const id= req.query.id;
+    console.log("id: ", id);
+    taskModel.findByIdAndUpdate({_id:id},{
+        $set:{
+            title:req.body.title,
+            description:req.body.title
+        }
+    }).then((data) => res.status(200).json(data))
+    .catch((error) => res.status(501).json({ message: error.message }))
+
+}
+export { addTask, getTask,removeTask,updateTask }
